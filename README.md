@@ -6,7 +6,6 @@ Single signon and IE cache issue
 
 app.config(['$httpProvider', function($httpProvider) {
     // This is used for telling AngularJS to enable post requests By CORS
-
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $httpProvider.defaults.withCredentials = true;
@@ -25,24 +24,17 @@ app.config(['$httpProvider', function($httpProvider) {
           var userIdVal = localStorage.getItem("userIds");
            if(userIdVal == "null") {
               $location.url('/login')
-          }
-          
+          }          
         },
-
        'requestError': function(rejection) {
           // request error your $rootscope messagin should be here?
           return $q.reject(rejection);
         },
-
-
         'response': function(response) {
           // response your $rootscope messagin should be here?
-        
-          return response;
+                  return response;
           console.log(response);
-          
-        },
-
+          },
        'responseError': function(response) {
           // response error your $rootscope messagin should be here?
           if (response.status === 401 || response.status === 403 ) {
@@ -52,19 +44,14 @@ app.config(['$httpProvider', function($httpProvider) {
             $rootScope.authorizeMsg= response.data.message;
           }
           //for closing all dialogs on error
-
           $location.path('/login');
-
-
           }
           return $q.reject(response);
-
         }
       };
       } ]).config(function($routeProvider,$locationProvider, $httpProvider) 
 {	
-	
-	$routeProvider
+		$routeProvider
         .when('/login', 
         {
         	controller	: 'loginController',
